@@ -13,7 +13,7 @@ class Play extends Phaser.Scene {
         const platforms = map.createStaticLayer('layer1', tileset, 0, 0);
 
         this.player = this.physics.add.sprite(50, 300, 'player');
-        this.player.setBounce(0.5);
+        this.player.setBounce(.9);
         this.player.setCollideWorldBounds(true);
         this.player.setDragX(200);
         this.physics.add.collider(this.player, platforms);
