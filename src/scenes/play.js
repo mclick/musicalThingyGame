@@ -45,6 +45,11 @@ class Play extends Phaser.Scene {
             this.player.setVelocityX(200);
         }
         //witchcraft
+        //this.kick.seek gives the position in the track in seconds.  
+        // .612 = 60/bpm
+        // *100 followed by %100 does two things
+        //      -trim the digits of n before the decimal point
+        //      -sets things up so that tolerence %error of beat
         this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
         if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.player.setVelocityY(-800);
