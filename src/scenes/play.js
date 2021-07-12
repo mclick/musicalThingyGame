@@ -6,6 +6,7 @@ class Play extends Phaser.Scene {
         this.load.image('tiles', 'assets/tempTileSet.png');
         this.load.tilemapTiledJSON('map', 'assets/tempTileMap.json');
         this.load.image('player', 'assets/tempPlayer.png');
+        this.load.image('drums','assets/tempDrums.png');
 
         //load music
         this.load.audio('kick', './assets/tempkick.mp3');
@@ -16,13 +17,15 @@ class Play extends Phaser.Scene {
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('tempTileSet', 'tiles');
         const platforms = map.createStaticLayer('layer1', tileset, 0, 0);
-        //
+        //player physics
         this.player = this.physics.add.sprite(50, 300, 'player');
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(true);
         this.player.setDragX(200);
         this.physics.add.collider(this.player, platforms);
         platforms.setCollisionByExclusion(-1, true);
+        //Drums exist now
+        this.drums = this.add.sprite(600,600,'drums');
         //keyInputs
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -30,8 +33,9 @@ class Play extends Phaser.Scene {
         //music
         this.kick = this.sound.add('kick', { loop: true });
         this.kick.play();
+        this.kick.setVolume(0);
         this.whistle = this.sound.add('whistle', { loop: true });
-        //this.whistle.play();
+        this.whistle.play();
     }
     update(){
         if(keyLeft.isDown){
@@ -40,9 +44,25 @@ class Play extends Phaser.Scene {
         if(keyRight.isDown){
             this.player.setVelocityX(200);
         }
+        //witchcraft
         this.n= ((((this.kick.seek-0.0555)/.612)*100)%100)-tolerence;
         if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.player.setVelocityY(-800);
+        }
+        if(this.checkCollision(this.player,this.drums)){
+            this.drums.destroy();
+            this.kick.setVolume(1);
+        }
+    }
+    checkCollision(player, thing){
+        if(player.x < thing.x + thing.width && 
+            player.x + player.width > thing.x && 
+            player.y < thing.y+thing.height&&
+            player.height + player.y > thing.y){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }
