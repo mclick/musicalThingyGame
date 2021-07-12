@@ -45,7 +45,7 @@ class Play extends Phaser.Scene {
             this.player.setVelocityX(200);
         }
         //witchcraft
-        this.n= ((((this.kick.seek-0.0555)/.612)*100)%100)-tolerence;
+        this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
         if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.player.setVelocityY(-800);
         }
