@@ -20,4 +20,4 @@ let borderPadding = borderUISize / 3;
 //tolerence is %within a beat.
 let tolerence = 25;
 
-let keyJump, keyLeft, keyRight;
+let keyJump, keyLeft, keyRight, keyESC;

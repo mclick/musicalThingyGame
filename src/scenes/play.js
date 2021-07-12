@@ -31,6 +31,7 @@ class Play extends Phaser.Scene {
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         //music
         this.kick = this.sound.add('kick', { loop: true });
         this.kick.play();
@@ -39,7 +40,7 @@ class Play extends Phaser.Scene {
         this.synth.play();
         this.synth.setVolume(1);
         this.whistle = this.sound.add('whistle', { loop: true });
-        //this.whistle.play();
+        this.whistle.play();
     }
     update(){
         if(keyLeft.isDown){
@@ -67,6 +68,10 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1);
+        }
+        //Return to menu
+        if(keyESC.isDown){
+            this.scene.start('menuScene');
         }
     }
     checkCollision(player, thing){
