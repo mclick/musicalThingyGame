@@ -6,6 +6,10 @@ class Play extends Phaser.Scene {
         this.load.image('tiles', 'assets/tempTileSet.png');
         this.load.tilemapTiledJSON('map', 'assets/tempTileMap.json');
         this.load.image('player', 'assets/tempPlayer.png');
+
+        //load music
+        this.load.audio('kick', './assets/tempkick.mp3');
+        this.load.audio('whistle', './assets/tempwhistle.mp3');
     }
     create(){
         //creates tile map on screen
@@ -23,6 +27,11 @@ class Play extends Phaser.Scene {
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        //music
+        this.kick = this.sound.add('kick', { loop: true });
+        this.kick.play();
+        this.whistle = this.sound.add('whistle', { loop: true });
+        this.whistle.play();
     }
     update(){
         if(keyLeft.isDown){
