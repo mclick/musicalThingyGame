@@ -40,9 +40,9 @@ class Play extends Phaser.Scene {
         if(keyRight.isDown){
             this.player.setVelocityX(200);
         }
-        this.n= (((this.kick.seek-0.0555)/.612)*100)%100
-        if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<50)){
-            this.player.setVelocityY(-400);
+        this.n= ((((this.kick.seek-0.0555)/.612)*100)%100)-tolerence;
+        if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
+            this.player.setVelocityY(-800);
         }
     }
 }
