@@ -18,7 +18,7 @@ class Play extends Phaser.Scene {
         const platforms = map.createStaticLayer('layer1', tileset, 0, 0);
         //
         this.player = this.physics.add.sprite(50, 300, 'player');
-        this.player.setBounce(.9);
+        this.player.setBounce(0);
         this.player.setCollideWorldBounds(true);
         this.player.setDragX(200);
         this.physics.add.collider(this.player, platforms);
@@ -31,7 +31,7 @@ class Play extends Phaser.Scene {
         this.kick = this.sound.add('kick', { loop: true });
         this.kick.play();
         this.whistle = this.sound.add('whistle', { loop: true });
-        this.whistle.play();
+        //this.whistle.play();
     }
     update(){
         if(keyLeft.isDown){
@@ -40,7 +40,8 @@ class Play extends Phaser.Scene {
         if(keyRight.isDown){
             this.player.setVelocityX(200);
         }
-        if(Phaser.Input.Keyboard.JustDown(keyJump)){
+        this.n= (((this.kick.seek-0.0555)/.612)*100)%100
+        if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<50)){
             this.player.setVelocityY(-400);
         }
     }
