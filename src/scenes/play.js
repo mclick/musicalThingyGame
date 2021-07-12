@@ -56,14 +56,11 @@ class Play extends Phaser.Scene {
         //      -sets things up so that tolerence %error of beat
 
 
-        /*this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
+        this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
         if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.player.setVelocityY(-800);
         }
-        */
-        //synth shenanigans
-        this.a = this.synth.seek;
-        this.n = (((-2.59*this.a+2.85*this.a**2-0.752*this.a**3+0.063*this.a**4+0.0009*this.a**5-0.0002*this.a**6)*100)%100)-tolerence;
+    
         console.log(this.n);
         if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.player.setVelocityY(-800);
