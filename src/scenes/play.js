@@ -11,6 +11,7 @@ class Play extends Phaser.Scene {
         //load music
         this.load.audio('kick', './assets/tempkick.mp3');
         this.load.audio('whistle', './assets/tempwhistle.mp3');
+        this.load.audio('synth', './assets/tempsythn.mp3');
     }
     create(){
         //creates tile map on screen
@@ -34,6 +35,9 @@ class Play extends Phaser.Scene {
         this.kick = this.sound.add('kick', { loop: true });
         this.kick.play();
         this.kick.setVolume(0);
+        this.synth = this.sound.add('synth', { loop: true });
+        this.synth.play();
+        this.synth.setVolume(1);
         this.whistle = this.sound.add('whistle', { loop: true });
         this.whistle.play();
     }
