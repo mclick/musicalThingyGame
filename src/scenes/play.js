@@ -61,9 +61,6 @@ class Play extends Phaser.Scene {
             this.player.setVelocityY(-800);
         }
     
-        if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
-            this.player.setVelocityY(-800);
-        }
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1);
