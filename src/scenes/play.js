@@ -22,9 +22,10 @@ class Play extends Phaser.Scene {
         this.player = this.physics.add.sprite(50, 300, 'player');
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(true);
-        this.player.setDragX(200);
+        this.player.setDragX(400);
         this.physics.add.collider(this.player, platforms);
         platforms.setCollisionByExclusion(-1, true);
+        
         //Drums exist now
         this.drums = this.add.sprite(600,600,'drums');
         //keyInputs
@@ -32,6 +33,7 @@ class Play extends Phaser.Scene {
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyRight = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         //music
         this.kick = this.sound.add('kick', { loop: true });
         this.kick.play();
@@ -39,15 +41,31 @@ class Play extends Phaser.Scene {
         this.synth = this.sound.add('synth', { loop: true });
         this.synth.play();
         this.synth.setVolume(1);
+        //Used to Calculate when the synth spikes in the song - couldnt create a neat function to represent this like I could with the kick drums
+        this.synthTimeArr = [0,1.8715,2.4515,4.8904,7.3455,7.6852,8.2753,8.8306]
         this.whistle = this.sound.add('whistle', { loop: true });
         this.whistle.play();
     }
     update(){
+        console.log(this.playerVelocityX);
         if(keyLeft.isDown){
-            this.player.setVelocityX(-200);
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-400){
+                this.player.setAccelerationX(-2000);
+            }
+            else if(this.player.body.velocity.x>-200){
+                this.player.setAccelerationX(-400);
+            }
         }
-        if(keyRight.isDown){
-            this.player.setVelocityX(200);
+        else if(keyRight.isDown){
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<400){
+                this.player.setAccelerationX(2000);
+            }
+            else if(this.player.body.velocity.x<200){
+                this.player.setAccelerationX(400);
+            }
+        }
+        else{
+            this.player.setAccelerationX(0);
         }
 
         //witchcraft
@@ -60,7 +78,7 @@ class Play extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.player.setVelocityY(-800);
         }
-    
+
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1);
@@ -70,6 +88,7 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene');
         }
     }
+
     checkCollision(player, thing){
         if(player.x < thing.x + thing.width && 
             player.x + player.width > thing.x && 
@@ -80,5 +99,14 @@ class Play extends Phaser.Scene {
         else{
             return false;
         }
+    }
+
+    checkMusicTimer(time, songTimeArr){
+        for(var i =0;i<songTimeArr.length;i++){
+            if(time>songTimeArr[i]-tolerence/75&&time<songTimeArr[i]+tolerence/75){
+                return true;
+            }
+        }
+        return false;
     }
 }
