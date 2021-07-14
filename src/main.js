@@ -18,6 +18,6 @@ let borderPadding = borderUISize / 3;
 
 //rythem error tolerence
 //tolerence is %within a beat.
-let tolerence = 25;
+let tolerence = 20;
 
 let keyJump, keyLeft, keyRight, keyESC, keySpace;
