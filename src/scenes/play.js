@@ -29,7 +29,7 @@ class Play extends Phaser.Scene {
         //Booleans to keep track of jumping
         this.jump1Avaliable = false;
         this.jump2Available = false;
-        
+        this.recentlyDoubleJumped=false;
         //Drums exist now
         this.drums = this.add.sprite(600,600,'drums');
         //keyInputs
@@ -51,6 +51,7 @@ class Play extends Phaser.Scene {
         this.whistle.play();
         this.bass= this.sound.add('bass',{loop: true});
         this.bass.play();
+        this.bassTimeArr=[0.06,1.0514,1.9098,2.4873,3.4451,3.5521,4.911,5.9423,6.7396,7.8353,8.3431,8.4511];
     }
     update(){
         console.log(this.playerVelocityX);
@@ -87,8 +88,21 @@ class Play extends Phaser.Scene {
         else{
             this.jump1Avaliable = false;
         }
+        if(this.checkMusicTimer(this.bass.seek,this.bassTimeArr)&&this.recentlyDoubleJumped==false){
+            this.jump2Available = true;
+        }
+        else{
+            this.jump2Available = false;
+        }
         if((this.jump1Avaliable==true||this.jump2Available==true)&&Phaser.Input.Keyboard.JustDown(keyJump)){
             this.player.setVelocityY(-800);
+            if(this.jump1Avaliable==false&&this.jump2Available==true){
+                this.jump2Available=false;
+                this.recentlyDoubleJumped=true;
+            }
+            else{
+                this.recentlyDoubleJumped=false;
+            }
         }
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
