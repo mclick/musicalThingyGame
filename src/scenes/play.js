@@ -107,7 +107,7 @@ class Play extends Phaser.Scene {
         }
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
-            this.kick.setVolume(1);
+            this.kick.setVolume(1); 
         }
         //Return to menu
         if(keyESC.isDown){
