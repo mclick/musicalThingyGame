@@ -82,8 +82,9 @@ class Play extends Phaser.Scene {
         //      -trim the digits of n before the decimal point
         //      -sets things up so that tolerence = %error of beat
         this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
-        if(this.player.body.velocity.y==0&&(this.n<tolerence)&&(this.n>-tolerence)){
+        if(this.player.body.onFloor()&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.jump1Avaliable= true;
+            this.recentlyDoubleJumped=false;
         }
         else{
             this.jump1Avaliable = false;
