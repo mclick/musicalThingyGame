@@ -26,6 +26,9 @@ class Play extends Phaser.Scene {
         this.player.setDragX(400);
         this.physics.add.collider(this.player, platforms);
         platforms.setCollisionByExclusion(-1, true);
+        //Booleans to keep track of jumping
+        this.jump1Avaliable = false;
+        this.jump2Available = false;
         
         //Drums exist now
         this.drums = this.add.sprite(600,600,'drums');
@@ -78,10 +81,15 @@ class Play extends Phaser.Scene {
         //      -trim the digits of n before the decimal point
         //      -sets things up so that tolerence = %error of beat
         this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
-        if(Phaser.Input.Keyboard.JustDown(keyJump)&&(this.n<tolerence)&&(this.n>-tolerence)){
+        if(this.player.body.velocity.y==0&&(this.n<tolerence)&&(this.n>-tolerence)){
+            this.jump1Avaliable= true;
+        }
+        else{
+            this.jump1Avaliable = false;
+        }
+        if((this.jump1Avaliable==true||this.jump2Available==true)&&Phaser.Input.Keyboard.JustDown(keyJump)){
             this.player.setVelocityY(-800);
         }
-
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1);
