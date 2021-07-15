@@ -5,7 +5,7 @@ class Play extends Phaser.Scene {
     preload(){
         this.load.image('tiles', 'assets/tempTileSet.png');
         this.load.tilemapTiledJSON('map', 'assets/tempTileMap.json');
-        this.load.image('player', 'assets/tempPlayer.png');
+        this.load.image('player', 'assets/player.png');
         this.load.image('drums','assets/tempDrums.png');
 
         //load music
