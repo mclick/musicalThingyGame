@@ -6,7 +6,7 @@ class Play extends Phaser.Scene {
         this.load.image('tiles', 'assets/tempTileSet.png');
         this.load.tilemapTiledJSON('map', 'assets/tempTileMap.json');
         this.load.image('player', 'assets/player.png');
-        this.load.image('drums','assets/tempDrums.png');
+        this.load.image('drums','assets/drum1.png');
 
         //load music
         this.load.audio('kick', './assets/tempkick.mp3');
