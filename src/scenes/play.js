@@ -58,7 +58,6 @@ class Play extends Phaser.Scene {
         this.cameras.main.startFollow(this.player);
     }
     update(){
-        console.log(this.playerVelocityX);
         if(keyLeft.isDown){
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600){
                 this.player.setAccelerationX(-2000);
