@@ -60,19 +60,25 @@ class Play extends Phaser.Scene {
     update(){
         console.log(this.playerVelocityX);
         if(keyLeft.isDown){
-            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-400){
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600){
                 this.player.setAccelerationX(-2000);
             }
-            else if(this.player.body.velocity.x>-200){
+            else if(this.player.body.velocity.x>-300){
                 this.player.setAccelerationX(-400);
+            }
+            else{
+                this.player.setAccelerationX(0);
             }
         }
         else if(keyRight.isDown){
-            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<400){
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600){
                 this.player.setAccelerationX(2000);
             }
-            else if(this.player.body.velocity.x<200){
+            else if(this.player.body.velocity.x<300){
                 this.player.setAccelerationX(400);
+            }
+            else{
+                this.player.setAccelerationX(0);
             }
         }
         else{
