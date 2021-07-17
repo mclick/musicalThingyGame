@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
     preload(){
         this.load.image('tiles', 'assets/tempTileSet.png');
-        this.load.tilemapTiledJSON('map', 'assets/tempTileMap.json');
+        this.load.tilemapTiledJSON('map', 'assets/tileMap01.json');
         this.load.image('player', 'assets/player.png');
         this.load.image('drums','assets/drum1.png');
 
@@ -18,11 +18,11 @@ class Play extends Phaser.Scene {
         //creates tile map on screen
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('tempTileSet', 'tiles');
-        const platforms = map.createStaticLayer('layer1', tileset, 0, 0);
+        const platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
         //player physics
-        this.player = this.physics.add.sprite(50, 300, 'player');
+        this.player = this.physics.add.sprite(64, 2000, 'player');
         this.player.setBounce(0);
-        this.player.setCollideWorldBounds(true);
+        this.player.setCollideWorldBounds(false);
         this.player.setDragX(400);
         this.physics.add.collider(this.player, platforms);
         platforms.setCollisionByExclusion(-1, true);
@@ -31,7 +31,7 @@ class Play extends Phaser.Scene {
         this.jump2Available = false;
         this.recentlyDoubleJumped=false;
         //Drums exist now
-        this.drums = this.add.sprite(600,600,'drums');
+        this.drums = this.add.sprite(1792,2208,'drums');
         //keyInputs
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -52,6 +52,10 @@ class Play extends Phaser.Scene {
         this.bass= this.sound.add('bass',{loop: true});
         this.bass.play();
         this.bassTimeArr=[0.06,1.0514,1.9098,2.4873,3.4451,3.5521,4.911,5.9423,6.7396,7.8353,8.3431,8.4511];
+
+        //Camera Stuff
+        this.cameras.main.setBounds(0, 0, 3200, 2400);
+        this.cameras.main.startFollow(this.player);
     }
     update(){
         console.log(this.playerVelocityX);
@@ -74,7 +78,6 @@ class Play extends Phaser.Scene {
         else{
             this.player.setAccelerationX(0);
         }
-
         //witchcraft
         //this.kick.seek gives the position in the track in seconds.  
         // .612 = 60/bpm
