@@ -91,26 +91,26 @@ class Play extends Phaser.Scene {
         //      -sets things up so that tolerence = %error of beat
         this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
         if(this.player.body.onFloor()&&(this.n<tolerence)&&(this.n>-tolerence)){
-            this.jump1Avaliable= true;
+            this.jump1Avaliable = true;
             this.recentlyDoubleJumped=false;
         }
         else{
             this.jump1Avaliable = false;
         }
         if(this.checkMusicTimer(this.bass.seek,this.bassTimeArr)&&this.recentlyDoubleJumped==false){
-            this.jump2Available = true;
+            this.jump2Avaliable = true;
         }
         else{
-            this.jump2Available = false;
+            this.jump2Avaliable = false;
         }
-        if((this.jump1Avaliable==true||this.jump2Available==true)&&Phaser.Input.Keyboard.JustDown(keyJump)){
-            this.player.setVelocityY(-800);
-            if(this.jump1Avaliable==false&&this.jump2Available==true){
+        if(Phaser.Input.Keyboard.JustDown(keyJump)){
+            if(this.player.body.onFloor()&&this.jump1Avaliable==true){
+                this.player.setVelocityY(-800);
+            }
+            else if(!this.player.body.onFloor()&&this.jump2Avaliable){
                 this.jump2Available=false;
                 this.recentlyDoubleJumped=true;
-            }
-            else{
-                this.recentlyDoubleJumped=false;
+                this.player.setVelocityY(-800);
             }
         }
         if(this.checkCollision(this.player,this.drums)){
