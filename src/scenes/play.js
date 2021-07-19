@@ -54,6 +54,11 @@ class Play extends Phaser.Scene {
         this.bass.play();
         this.bassTimeArr=[0.06,1.0514,1.9098,2.4873,3.4451,3.5521,4.911,5.9423,6.7396,7.8353,8.3431,8.4511];
 
+        //Booleons to represent whether or not instruments have been picked up
+        this.kickGot = false;
+        this.synthGot = true; // These are temporarily enabled until the characters are placed on the map
+        this.bassGot = true; //  See comment directly above this one
+
         //Camera Stuff
         //.setBounds(left x bound, top y bound, right x bound, bottem y bound)
         //Should be .setBounds(0,0,width,height)
@@ -108,7 +113,7 @@ class Play extends Phaser.Scene {
         else{
             this.jump2Avaliable = false;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyJump)){
+        if(Phaser.Input.Keyboard.JustDown(keyJump)&&this.kickGot){
             if(this.player.body.onFloor()&&this.jump1Avaliable==true){
                 this.player.setVelocityY(-600);
             }
@@ -121,6 +126,7 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1); 
+            this.kickGot = true;
         }
         //Return to menu
         if(keyESC.isDown){
