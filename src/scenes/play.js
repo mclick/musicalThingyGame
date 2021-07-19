@@ -59,6 +59,7 @@ class Play extends Phaser.Scene {
     }
     update(){
         if(keyLeft.isDown){
+            this.player.flipX = true;
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600){
                 this.player.setAccelerationX(-2000);
             }
@@ -70,6 +71,7 @@ class Play extends Phaser.Scene {
             }
         }
         else if(keyRight.isDown){
+            this.player.flipX = false;
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600){
                 this.player.setAccelerationX(2000);
             }
