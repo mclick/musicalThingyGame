@@ -68,7 +68,7 @@ class Play extends Phaser.Scene {
     update(){
         if(keyLeft.isDown){
             this.player.flipX = true;
-            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600){
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600&&this.synthGot){
                 this.player.setAccelerationX(-2000);
             }
             else if(this.player.body.velocity.x>-300){
@@ -80,7 +80,7 @@ class Play extends Phaser.Scene {
         }
         else if(keyRight.isDown){
             this.player.flipX = false;
-            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600){
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600&&this.synthGot){
                 this.player.setAccelerationX(2000);
             }
             else if(this.player.body.velocity.x<300){
@@ -117,7 +117,7 @@ class Play extends Phaser.Scene {
             if(this.player.body.onFloor()&&this.jump1Avaliable==true){
                 this.player.setVelocityY(-600);
             }
-            else if(!this.player.body.onFloor()&&this.jump2Avaliable){
+            else if(!this.player.body.onFloor()&&this.jump2Avaliable&&this.bassGot){
                 this.jump2Available=false;
                 this.recentlyDoubleJumped=true;
                 this.player.setVelocityY(-600);
