@@ -18,6 +18,7 @@ class Play extends Phaser.Scene {
         //creates tile map on screen
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('tempTileSet', 'tiles');
+        //make sure 'Tile Layer 1' is replaced with the appropiate layer name. Layer names will default to Tile Layer #
         const platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
         //player physics
         this.player = this.physics.add.sprite(64, 2000, 'player');
@@ -54,6 +55,8 @@ class Play extends Phaser.Scene {
         this.bassTimeArr=[0.06,1.0514,1.9098,2.4873,3.4451,3.5521,4.911,5.9423,6.7396,7.8353,8.3431,8.4511];
 
         //Camera Stuff
+        //.setBounds(left x bound, top y bound, right x bound, bottem y bound)
+        //Should be .setBounds(0,0,width,height)
         this.cameras.main.setBounds(0, 0, 3200, 2400);
         this.cameras.main.startFollow(this.player);
     }
