@@ -63,7 +63,7 @@ class Play extends Phaser.Scene {
                 this.player.setAccelerationX(-2000);
             }
             else if(this.player.body.velocity.x>-300){
-                this.player.setAccelerationX(-400);
+                this.player.setAccelerationX(-800);
             }
             else{
                 this.player.setAccelerationX(0);
@@ -74,7 +74,7 @@ class Play extends Phaser.Scene {
                 this.player.setAccelerationX(2000);
             }
             else if(this.player.body.velocity.x<300){
-                this.player.setAccelerationX(400);
+                this.player.setAccelerationX(800);
             }
             else{
                 this.player.setAccelerationX(0);
@@ -105,12 +105,12 @@ class Play extends Phaser.Scene {
         }
         if(Phaser.Input.Keyboard.JustDown(keyJump)){
             if(this.player.body.onFloor()&&this.jump1Avaliable==true){
-                this.player.setVelocityY(-800);
+                this.player.setVelocityY(-600);
             }
             else if(!this.player.body.onFloor()&&this.jump2Avaliable){
                 this.jump2Available=false;
                 this.recentlyDoubleJumped=true;
-                this.player.setVelocityY(-800);
+                this.player.setVelocityY(-600);
             }
         }
         if(this.checkCollision(this.player,this.drums)){
