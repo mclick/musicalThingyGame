@@ -7,7 +7,7 @@ let config = {
         default: 'arcade',
         arcade: {
             gravity:{y: 1000},
-            debug: true, //set to false before release
+            debug: false, //set to false before release
         }
     }
 }
@@ -18,6 +18,6 @@ let borderPadding = borderUISize / 3;
 
 //rythem error tolerence
 //tolerence is %within a beat.
-let tolerence = 20;
+let tolerence = 25;
 
 let keyJump, keyLeft, keyRight, keyESC, keySpace;
