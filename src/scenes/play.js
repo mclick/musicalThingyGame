@@ -5,8 +5,8 @@ class Play extends Phaser.Scene {
     preload(){
         this.load.image('tiles', 'assets/tempTileSet.png');
         this.load.tilemapTiledJSON('map', 'assets/tileMap01.json');
-        this.load.image('player', 'assets/player.png');
-        this.load.image('drums','assets/drum1.png');
+        this.load.image('player', 'assets/playerFinal1.png');
+        this.load.image('drums','assets/drumFinal1.png');
         this.load.image('synth', 'assets/synthSnake1.png');
 
         //load music
@@ -22,7 +22,7 @@ class Play extends Phaser.Scene {
         //make sure 'Tile Layer 1' is replaced with the appropiate layer name. Layer names will default to Tile Layer #
         const platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
         //player physics
-        this.player = this.physics.add.sprite(64, 2000, 'player');
+        this.player = this.physics.add.sprite(64, 2208, 'player');
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(false);
         this.player.setDragX(400);
@@ -70,7 +70,7 @@ class Play extends Phaser.Scene {
     }
     update(){
         if(keyLeft.isDown){
-            this.player.flipX = true;
+            this.player.flipX = false;
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600&&this.synthGot){
                 this.player.setAccelerationX(-2000);
             }
@@ -82,7 +82,7 @@ class Play extends Phaser.Scene {
             }
         }
         else if(keyRight.isDown){
-            this.player.flipX = false;
+            this.player.flipX = true;
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600&&this.synthGot){
                 this.player.setAccelerationX(2000);
             }
@@ -95,6 +95,10 @@ class Play extends Phaser.Scene {
         }
         else{
             this.player.setAccelerationX(0);
+        }
+        if(this.player.y>2210){ //Catches the player if they clip below the map.  Possible when falling from great heights
+            this.player.y = 2208;
+            this.player.setVelocityY(0);
         }
         //witchcraft
         //this.kick.seek gives the position in the track in seconds.  
