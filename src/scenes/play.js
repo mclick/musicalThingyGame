@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', 'assets/tileMap01.json');
         this.load.image('player', 'assets/player.png');
         this.load.image('drums','assets/drum1.png');
+        this.load.image('synth', 'assets/synthSnake1.png');
 
         //load music
         this.load.audio('kick', './assets/tempkick.mp3');
@@ -25,14 +26,16 @@ class Play extends Phaser.Scene {
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(false);
         this.player.setDragX(400);
+        //Adds Collisions between the player and the platforms
         this.physics.add.collider(this.player, platforms);
         platforms.setCollisionByExclusion(-1, true);
         //Booleans to keep track of jumping
         this.jump1Avaliable = false;
         this.jump2Available = false;
         this.recentlyDoubleJumped=false;
-        //Drums exist now
+        //Instruments exist now
         this.drums = this.add.sprite(1792,2208,'drums');
+        this.synthSnake = this.add.sprite(3000,1472,'synth');
         //keyInputs
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -45,7 +48,7 @@ class Play extends Phaser.Scene {
         this.kick.setVolume(0);
         this.synth = this.sound.add('synth', { loop: true });
         this.synth.play();
-        this.synth.setVolume(1);
+        this.synth.setVolume(0);
         //Used to Calculate when the synth spikes in the song - couldnt create a neat function to represent this like I could with the kick drums
         this.synthTimeArr = [0,1.8715,2.4515,4.8904,7.3455,7.6852,8.2753,8.8306]
         this.whistle = this.sound.add('whistle', { loop: true });
@@ -56,7 +59,7 @@ class Play extends Phaser.Scene {
 
         //Booleons to represent whether or not instruments have been picked up
         this.kickGot = false;
-        this.synthGot = true; // These are temporarily enabled until the characters are placed on the map
+        this.synthGot = false; // These are temporarily enabled until the characters are placed on the map
         this.bassGot = true; //  See comment directly above this one
 
         //Camera Stuff
@@ -123,10 +126,16 @@ class Play extends Phaser.Scene {
                 this.player.setVelocityY(-600);
             }
         }
+        //Checking Collisions with instruments
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1); 
             this.kickGot = true;
+        }
+        if(this.checkCollision(this.player,this.synthSnake)){
+            this.synthSnake.destroy();
+            this.synth.setVolume(1); 
+            this.synthGot = true;
         }
         //Return to menu
         if(keyESC.isDown){
