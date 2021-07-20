@@ -18,6 +18,7 @@ class Play extends Phaser.Scene {
         //creates tile map on screen
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('tempTileSet', 'tiles');
+        //make sure 'Tile Layer 1' is replaced with the appropiate layer name. Layer names will default to Tile Layer #
         const platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
         //player physics
         this.player = this.physics.add.sprite(64, 2000, 'player');
@@ -53,28 +54,37 @@ class Play extends Phaser.Scene {
         this.bass.play();
         this.bassTimeArr=[0.06,1.0514,1.9098,2.4873,3.4451,3.5521,4.911,5.9423,6.7396,7.8353,8.3431,8.4511];
 
+        //Booleons to represent whether or not instruments have been picked up
+        this.kickGot = false;
+        this.synthGot = true; // These are temporarily enabled until the characters are placed on the map
+        this.bassGot = true; //  See comment directly above this one
+
         //Camera Stuff
+        //.setBounds(left x bound, top y bound, right x bound, bottem y bound)
+        //Should be .setBounds(0,0,width,height)
         this.cameras.main.setBounds(0, 0, 3200, 2400);
         this.cameras.main.startFollow(this.player);
     }
     update(){
         if(keyLeft.isDown){
-            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600){
+            this.player.flipX = true;
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600&&this.synthGot){
                 this.player.setAccelerationX(-2000);
             }
             else if(this.player.body.velocity.x>-300){
-                this.player.setAccelerationX(-400);
+                this.player.setAccelerationX(-800);
             }
             else{
                 this.player.setAccelerationX(0);
             }
         }
         else if(keyRight.isDown){
-            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600){
+            this.player.flipX = false;
+            if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x<600&&this.synthGot){
                 this.player.setAccelerationX(2000);
             }
             else if(this.player.body.velocity.x<300){
-                this.player.setAccelerationX(400);
+                this.player.setAccelerationX(800);
             }
             else{
                 this.player.setAccelerationX(0);
@@ -103,19 +113,20 @@ class Play extends Phaser.Scene {
         else{
             this.jump2Avaliable = false;
         }
-        if(Phaser.Input.Keyboard.JustDown(keyJump)){
+        if(Phaser.Input.Keyboard.JustDown(keyJump)&&this.kickGot){
             if(this.player.body.onFloor()&&this.jump1Avaliable==true){
-                this.player.setVelocityY(-800);
+                this.player.setVelocityY(-600);
             }
-            else if(!this.player.body.onFloor()&&this.jump2Avaliable){
+            else if(!this.player.body.onFloor()&&this.jump2Avaliable&&this.bassGot){
                 this.jump2Available=false;
                 this.recentlyDoubleJumped=true;
-                this.player.setVelocityY(-800);
+                this.player.setVelocityY(-600);
             }
         }
         if(this.checkCollision(this.player,this.drums)){
             this.drums.destroy();
             this.kick.setVolume(1); 
+            this.kickGot = true;
         }
         //Return to menu
         if(keyESC.isDown){
