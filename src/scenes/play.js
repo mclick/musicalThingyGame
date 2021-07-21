@@ -34,7 +34,7 @@ class Play extends Phaser.Scene {
         this.player = this.physics.add.sprite(64,2208,'atlas','playerFinal1').play('player');
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(false);
-        this.player.setDragX(400);
+        this.player.setDragX(800);
         //Adds Collisions between the player and the platforms
         this.physics.add.collider(this.player, platforms);
         platforms.setCollisionByExclusion(-1, true);
