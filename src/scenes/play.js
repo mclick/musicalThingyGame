@@ -60,7 +60,7 @@ class Play extends Phaser.Scene {
             prefix: 'kickMonster', suffix: ''
         });
         this.anims.create({ key: 'kick', frames: this.kickframeNames, frameRate: 5, repeat: -1 });
-        this.kickMonster = this.add.sprite(2016,734,'atlas','kickMonster1').play('kick');
+        this.kickMonster = this.add.sprite(2048,924,'atlas','kickMonster1').play('kick');
         //keyInputs
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
