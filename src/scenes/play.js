@@ -3,11 +3,16 @@ class Play extends Phaser.Scene {
         super("playScene");
     }
     preload(){
+
+
         this.load.image('tiles', 'assets/tempTileSet.png');
         this.load.tilemapTiledJSON('map', 'assets/tileMap01.json');
-        this.load.image('player', 'assets/playerFinal1.png');
-        this.load.image('drums','assets/drumFinal1.png');
-        this.load.image('synth', 'assets/synthSnake1.png');
+
+        this.load.atlas('atlas', 'assets/monsterSpriteSheet.png', 'assets/monsterSpriteSheet.json');
+
+        //this.load.image('player', 'assets/playerFinal1.png');
+        //this.load.image('drums','assets/drumFinal1.png');
+        //this.load.image('synth', 'assets/synthSnake1.png');
 
         //load music
         this.load.audio('kick', './assets/tempkick.mp3');
@@ -22,7 +27,12 @@ class Play extends Phaser.Scene {
         //make sure 'Tile Layer 1' is replaced with the appropiate layer name. Layer names will default to Tile Layer #
         const platforms = map.createStaticLayer('Tile Layer 1', tileset, 0, 0);
         //player physics
-        this.player = this.physics.add.sprite(64, 2208, 'player');
+        this.playerframeNames = this.anims.generateFrameNames('atlas', {
+            start: 1, end: 2, zeroPad: 0,
+            prefix: 'playerFinal', suffix: ''
+        });
+        this.anims.create({ key: 'player', frames: this.playerframeNames, frameRate: 4, repeat: -1 });
+        this.player = this.physics.add.sprite(64,2208,'atlas','playerFinal1').play('player');
         this.player.setBounce(0);
         this.player.setCollideWorldBounds(false);
         this.player.setDragX(400);
@@ -34,8 +44,24 @@ class Play extends Phaser.Scene {
         this.jump2Available = false;
         this.recentlyDoubleJumped=false;
         //Instruments exist now
-        this.drums = this.add.sprite(1792,2208,'drums');
-        this.synthSnake = this.add.sprite(3000,1472,'synth');
+        this.drumframeNames = this.anims.generateFrameNames('atlas', {
+                start: 1, end: 2, zeroPad: 0,
+                prefix: 'drumFinal', suffix: ''
+            });
+        this.anims.create({ key: 'drums', frames: this.drumframeNames, frameRate: 5, repeat: -1 });
+        this.drums = this.add.sprite(1792,2220,'atlas','drumFinal1').play('drums');
+        this.synthframeNames = this.anims.generateFrameNames('atlas', {
+            start: 1, end: 2, zeroPad: 0,
+            prefix: 'synthSnake', suffix: ''
+        });
+        this.anims.create({ key: 'synth', frames: this.synthframeNames, frameRate: 5, repeat: -1 });
+        this.synthSnake = this.add.sprite(3000,1484,'atlas','synthSnake1').play('synth');
+        this.kickframeNames = this.anims.generateFrameNames('atlas', {
+            start: 1, end: 2, zeroPad: 0,
+            prefix: 'kickMonster', suffix: ''
+        });
+        this.anims.create({ key: 'kick', frames: this.kickframeNames, frameRate: 5, repeat: -1 });
+        this.synthSnake = this.add.sprite(2016,734,'atlas','kickMonster1').play('kick');
         //keyInputs
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
