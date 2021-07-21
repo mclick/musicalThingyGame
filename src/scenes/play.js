@@ -109,7 +109,7 @@ class Play extends Phaser.Scene {
         this.n= ((((this.kick.seek)/.612)*100)%100)-tolerence;
         if(this.player.body.onFloor()&&(this.n<tolerence)&&(this.n>-tolerence)){
             this.jump1Avaliable = true;
-            this.recentlyDoubleJumped=false;
+            this.recentlyDoubleJumped = false;
         }
         else{
             this.jump1Avaliable = false;
