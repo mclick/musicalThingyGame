@@ -67,8 +67,15 @@ class Play extends Phaser.Scene {
         //Should be .setBounds(0,0,width,height)
         this.cameras.main.setBounds(0, 0, 3200, 2400);
         this.cameras.main.startFollow(this.player);
+
+        //Debug Info: Remove before Release
+        keyDebug =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
     }
     update(){
+        if(keyDebug.isDown){
+            console.log(this.player.x);
+            console.log(this.player.y);
+        }
         if(keyLeft.isDown){
             this.player.flipX = false;
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600&&this.synthGot){
