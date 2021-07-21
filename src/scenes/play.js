@@ -96,14 +96,20 @@ class Play extends Phaser.Scene {
 
         //Invisble win condition hit box
         this.winBox = new Phaser.Geom.Rectangle(864,320, 800, 224);
-        //Debug Info: Remove before Release
-        keyDebug =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        
+        //config info for tutorial text
+        this.tutorialConfig = {
+            fontFamily: 'Courier',
+            fontSize: '24px',
+            align: 'right',
+            padding: {
+              top: 5,
+              bottom: 5,
+            },
+            fixedWidth: 0
+        }
     }
     update(){
-        if(keyDebug.isDown){
-            console.log(this.player.x);
-            console.log(this.player.y);
-        }
         if(keyLeft.isDown){
             this.player.flipX = false;
             if(this.checkMusicTimer(this.synth.seek,this.synthTimeArr)&&keySpace.isDown&&this.player.body.velocity.x>-600&&this.synthGot){
@@ -167,16 +173,23 @@ class Play extends Phaser.Scene {
         }
         //Checking Collisions with instruments
         if(this.checkCollision(this.player,this.drums)){
+            this.add.text(1792, 2198,"Press W to Jump", this.tutorialConfig).setOrigin(0.5);
+            this.add.text(1792, 2220,"Jump to the Beat",this.tutorialConfig).setOrigin(0.5);
             this.drums.destroy();
             this.kick.setVolume(1); 
             this.kickGot = true;
+
         }
         if(this.checkCollision(this.player,this.synthSnake)){
+            this.add.text(2968, 1484,"Press Space to Dash", this.tutorialConfig).setOrigin(0.5);
+            this.add.text(2968, 1452,"Dash to the Sound of the Synth",this.tutorialConfig).setOrigin(0.5);
             this.synthSnake.destroy();
             this.synth.setVolume(1); 
             this.synthGot = true;
         }
         if(this.checkCollision(this.player,this.kickMonster)){
+            this.add.text(2048,892,"You can now double jump", this.tutorialConfig).setOrigin(0.5);
+            this.add.text(2048,924,"But only to the sound of the bass",this.tutorialConfig).setOrigin(0.5);
             this.kickMonster.destroy();
             this.bass.setVolume(1); 
             this.bassGot = true;
