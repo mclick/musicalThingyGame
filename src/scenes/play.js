@@ -68,6 +68,9 @@ class Play extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, 3200, 2400);
         this.cameras.main.startFollow(this.player);
 
+        //Invisble win condition hit box
+        this.winBox = new Phaser.Geom.Rectangle(864,320, 800, 224);
+        //this.winBox.setVisible(true);//
         //Debug Info: Remove before Release
         keyDebug =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
     }
@@ -151,6 +154,9 @@ class Play extends Phaser.Scene {
         //Return to menu
         if(keyESC.isDown){
             this.scene.start('menuScene');
+        }
+        if(this.checkCollision(this.player,this.winBox)){
+            console.log(true);
         }
     }
 
