@@ -10,9 +10,7 @@ class Play extends Phaser.Scene {
 
         this.load.atlas('atlas', 'assets/monsterSpriteSheet.png', 'assets/monsterSpriteSheet.json');
 
-        //this.load.image('player', 'assets/playerFinal1.png');
-        //this.load.image('drums','assets/drumFinal1.png');
-        //this.load.image('synth', 'assets/synthSnake1.png');
+        this.load.image('backround','assets/Background_Drawing.png');
 
         //load music
         this.load.audio('kick', './assets/tempkick.mp3');
@@ -21,6 +19,7 @@ class Play extends Phaser.Scene {
         this.load.audio('bass','./assets/tempbass.mp3');
     }
     create(){
+        this.backround = this.add.sprite(1600,1200,'backround');
         //creates tile map on screen
         const map = this.make.tilemap({ key: 'map' });
         const tileset = map.addTilesetImage('tempTileSet', 'tiles');
@@ -61,7 +60,7 @@ class Play extends Phaser.Scene {
             prefix: 'kickMonster', suffix: ''
         });
         this.anims.create({ key: 'kick', frames: this.kickframeNames, frameRate: 5, repeat: -1 });
-        this.synthSnake = this.add.sprite(2016,734,'atlas','kickMonster1').play('kick');
+        this.kickMonster = this.add.sprite(2016,734,'atlas','kickMonster1').play('kick');
         //keyInputs
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyLeft = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -81,12 +80,13 @@ class Play extends Phaser.Scene {
         this.whistle.play();
         this.bass= this.sound.add('bass',{loop: true});
         this.bass.play();
+        this.bass.setVolume(0);
         this.bassTimeArr=[0.06,1.0514,1.9098,2.4873,3.4451,3.5521,4.911,5.9423,6.7396,7.8353,8.3431,8.4511];
 
         //Booleons to represent whether or not instruments have been picked up
         this.kickGot = false;
-        this.synthGot = false; // These are temporarily enabled until the characters are placed on the map
-        this.bassGot = true; //  See comment directly above this one
+        this.synthGot = false;
+        this.bassGot = false
 
         //Camera Stuff
         //.setBounds(left x bound, top y bound, right x bound, bottem y bound)
@@ -96,7 +96,6 @@ class Play extends Phaser.Scene {
 
         //Invisble win condition hit box
         this.winBox = new Phaser.Geom.Rectangle(864,320, 800, 224);
-        //this.winBox.setVisible(true);//
         //Debug Info: Remove before Release
         keyDebug =  this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
     }
@@ -176,6 +175,11 @@ class Play extends Phaser.Scene {
             this.synthSnake.destroy();
             this.synth.setVolume(1); 
             this.synthGot = true;
+        }
+        if(this.checkCollision(this.player,this.kickMonster)){
+            this.kickMonster.destroy();
+            this.bass.setVolume(1); 
+            this.bassGot = true;
         }
         //Return to menu
         if(keyESC.isDown){
