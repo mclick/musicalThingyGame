@@ -201,6 +201,7 @@ class Play extends Phaser.Scene {
         }
         if(this.checkCollision(this.player,this.winBox)){
             this.scene.start('victoryScene');
+            this.stopAllMusic();
         }
     }
 
