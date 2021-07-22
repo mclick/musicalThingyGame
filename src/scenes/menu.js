@@ -18,7 +18,7 @@ class Menu extends Phaser.Scene {
             },
             fixedWidth: 0
         }
-
+        
         //menu text
         this.add.text(game.config.width/2, game.config.height/2-borderUISize*2-borderPadding*2, 'Music Prototype', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2-borderUISize-borderPadding, 'Use (A) and (D) keys to move, and (W) to jump', menuConfig).setOrigin(0.5);
@@ -30,6 +30,7 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height/2+borderUISize*3+borderPadding*3, 'and Escape key to return to the menu', menuConfig).setOrigin(0.5)
 
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        
     }
     update(){
         if(Phaser.Input.Keyboard.JustDown(keyJump)){
