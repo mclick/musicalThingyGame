@@ -199,7 +199,7 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene');
         }
         if(this.checkCollision(this.player,this.winBox)){
-            console.log(true);
+            this.scene.start('victoryScene');
         }
     }
 
