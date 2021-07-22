@@ -2,7 +2,7 @@ let config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    scene: [ Menu, Play, Victory ],
+    scene: [ Menu, Play, Victory, Credits ],
     physics:{
         default: 'arcade',
         arcade: {
@@ -20,5 +20,5 @@ let borderPadding = borderUISize / 3;
 //tolerence is %within a beat.
 let tolerence = 30;
 
-let keyJump, keyLeft, keyRight, keyESC, keySpace;
+let keyJump, keyLeft, keyRight, keyESC, keySpace, keyC;
 let keyDebug; //used to dump debug info to console.
