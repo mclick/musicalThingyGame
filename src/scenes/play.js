@@ -196,6 +196,7 @@ class Play extends Phaser.Scene {
         }
         //Return to menu
         if(keyESC.isDown){
+            this.stopAllMusic();
             this.scene.start('menuScene');
         }
         if(this.checkCollision(this.player,this.winBox)){
@@ -222,5 +223,12 @@ class Play extends Phaser.Scene {
             }
         }
         return false;
+    }
+
+    stopAllMusic(){
+        this.bass.stop();
+        this.kick.stop();
+        this.synth.stop();
+        this.whistle.stop();
     }
 }
