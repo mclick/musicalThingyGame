@@ -1,3 +1,16 @@
+/*  This Comment is literally just the Readme file copy and pasted.
+Programmer -- Matthew
+Music -- Jordan
+Art Assets -- Cameron + Stanley
+
+Our aesthetic experience goal was to make a kind of upbeat game,
+that the player could get lost in when playing it.
+
+Our theme is Lost and Found,  which arises in the fact that you
+must find various instruments to gain new abilities and music.
+
+
+*/
 let config = {
     type: Phaser.AUTO,
     width: 800,
@@ -22,3 +35,4 @@ let tolerence = 30;
 
 let keyJump, keyLeft, keyRight, keyESC, keySpace, keyC;
 let keyDebug; //used to dump debug info to console.
+
