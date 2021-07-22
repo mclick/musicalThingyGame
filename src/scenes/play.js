@@ -13,10 +13,10 @@ class Play extends Phaser.Scene {
         this.load.image('backround','assets/Background_Drawing.png');
 
         //load music
-        this.load.audio('kick', './assets/tempkick.mp3');
-        this.load.audio('whistle', './assets/tempwhistle.mp3');
-        this.load.audio('synth', './assets/tempsynth.mp3');
-        this.load.audio('bass','./assets/tempbass.mp3');
+        this.load.audio('kick', './assets/finalkick.wav');
+        this.load.audio('whistle', './assets/finalwhistle.wav');
+        this.load.audio('synth', './assets/finalsynth.wav');
+        this.load.audio('bass','./assets/finalbass.wav');
     }
     create(){
         this.backround = this.add.sprite(1600,1200,'backround');
