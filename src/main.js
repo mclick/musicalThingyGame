@@ -34,5 +34,4 @@ let borderPadding = borderUISize / 3;
 let tolerence = 30;
 
 let keyJump, keyLeft, keyRight, keyESC, keySpace, keyC;
-let keyDebug; //used to dump debug info to console.
 
